@@ -47,18 +47,18 @@ export default function Header() {
 }
 
 const Container = styled.div`
-  z-index: 10000;
+  z-index: 700;
   background: orange;
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   height: 150vh;
-  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100px;
   position: fixed;
+  border-radius: 0 0 80px 80px;
   @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -90,7 +90,10 @@ const HeaderItems = styled.div`
   }
 
   .selected {
-    color: #00efff;
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.1);
+    background-color: black;
+    padding: 5px;
+    border-radius: 12px;
   }
   @media (max-width: 1200px) {
     width: 95%;
