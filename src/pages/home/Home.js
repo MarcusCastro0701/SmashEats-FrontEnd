@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Header from '../../components/Header';
 import OrdersDashboard from '../../components/orders-dashboard/Dashboard';
+import PaymentDashboard from '../../components/payment-dashboard/Dashboard';
 
 export default function Home() {
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [order, setOrder] = useState([]);
+  const [dashboardBool, setDashboardBool] = useState(true);
+
   return (
     <Container>
-      <Header />
-      <OrdersDashboard />
+      <OrdersDashboard
+        totalPrice={totalPrice}
+        setTotalPrice={setTotalPrice}
+        order={order}
+        setOrder={setOrder}
+        dashboardBool={dashboardBool}
+        setDashboardBool={setDashboardBool}
+      />
+      <PaymentDashboard
+        order={order}
+        totalPrice={totalPrice}
+        dashboardBool={dashboardBool}
+        setDashboardBool={setDashboardBool}
+      />
     </Container>
   );
 }

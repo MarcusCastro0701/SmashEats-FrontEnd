@@ -14,6 +14,7 @@ export default function AditionalsCheckBox({
       arr.push({
         name: `${aditional.name} - (adicional)`,
         price: aditional.price,
+        type: aditional.type,
       });
 
       setProductOrder(arr);

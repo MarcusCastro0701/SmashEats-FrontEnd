@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import bacon from '../../../assets/images/bacon.jpeg';
@@ -22,6 +23,7 @@ export default function ProductOrderPopUp({
   const [productObservations, setProductObservations] = useState('');
   const [productOrder, setProductOrder] = useState([
     {
+      type: 1,
       name: product.name,
       price: product.price,
     },
@@ -33,18 +35,21 @@ export default function ProductOrderPopUp({
       img: bacon,
       price: 2.5,
       size: '10g',
+      type: 2,
     },
     {
       name: 'Chedar',
       img: chedar,
       price: 1.5,
       size: '10g',
+      type: 2,
     },
     {
       name: 'Barbecue',
       img: barbecue,
       price: 2.5,
       size: 'Acompanhamento',
+      type: 2,
     },
   ];
 
@@ -64,15 +69,15 @@ export default function ProductOrderPopUp({
       id: Number(order.length) + 1,
       productOrder,
       observations: productObservations,
+      quantity,
     });
     setOrder(newOrder);
     setQuantity(1);
-    setProductOrder([
-      {
-        name: product.name,
-        price: product.price,
-      },
-    ]);
+    const orderArr = productOrder;
+    for (let e = 1; e <= quantity - 1; e++) {
+      orderArr.shift();
+    }
+    setProductOrder(orderArr);
     setProductObservations('');
     setClose();
   }

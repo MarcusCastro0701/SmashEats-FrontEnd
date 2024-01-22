@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import ProductOrder from './products/ProductOrder';
 
-// import { toast } from "react-toastify"
-
-export default function Footer({ totalPrice, setTotalPrice, order, setOrder }) {
+export default function Footer({
+  totalPrice,
+  setTotalPrice,
+  order,
+  setOrder,
+  setDashboardBool,
+}) {
   function removeFromOrder(o) {
     const arr = order;
     const filteredArr = arr.filter(e => e.id !== o.id);
@@ -24,6 +29,14 @@ export default function Footer({ totalPrice, setTotalPrice, order, setOrder }) {
     setOrder([]);
   }
 
+  function finishOrder() {
+    if (order.length < 1) {
+      toast('Selecione pelo menos um produto!');
+      return;
+    }
+    setDashboardBool(false);
+  }
+
   return (
     <OrderOptions>
       {totalPrice === 0 ? (
@@ -34,7 +47,10 @@ export default function Footer({ totalPrice, setTotalPrice, order, setOrder }) {
             {order.map(o => (
               <>
                 <ProductOrderContainer>
-                  <ProductOrder productOrder={o.productOrder} />
+                  <ProductOrder
+                    productOrder={o.productOrder}
+                    quantity={o.quantity}
+                  />
                   {o.observations === '' ? (
                     ''
                   ) : (
@@ -54,7 +70,9 @@ export default function Footer({ totalPrice, setTotalPrice, order, setOrder }) {
         <Cancel onClick={() => cancelOrder()} totalPrice={totalPrice}>
           Cancelar
         </Cancel>
-        <Finish totalPrice={totalPrice}>Finalizar</Finish>
+        <Finish totalPrice={totalPrice} onClick={() => finishOrder()}>
+          Ir para pagamento
+        </Finish>
       </div>
     </OrderOptions>
   );

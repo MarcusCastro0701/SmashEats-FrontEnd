@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Header from './components/Header';
 import Home from './pages/home/Home';
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
         pauseOnHover
         theme="dark"
       />
-
+      <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

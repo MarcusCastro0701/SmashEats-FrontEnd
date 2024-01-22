@@ -26,6 +26,7 @@ export default function ProductRow({
       description:
         'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
       img: burger,
+      type: 1,
     },
     {
       name: 'X-Tudin',
@@ -33,6 +34,7 @@ export default function ProductRow({
       description:
         'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
       img: burger,
+      type: 1,
     },
     {
       name: 'X-Tudão',
@@ -40,6 +42,7 @@ export default function ProductRow({
       description:
         'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
       img: burger,
+      type: 1,
     },
     {
       name: 'X-Tudasso',
@@ -47,6 +50,7 @@ export default function ProductRow({
       description:
         'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
       img: burger,
+      type: 1,
     },
   ];
 

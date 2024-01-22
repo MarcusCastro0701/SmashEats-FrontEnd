@@ -13,10 +13,10 @@ export default function NumberCounter({
   function plus() {
     const arr = productOrder;
     arr.unshift({
+      type: 1,
       name: product.name,
       price: product.price,
     });
-
     setQuantity(quantity + 1);
     setProductOrder(arr);
   }

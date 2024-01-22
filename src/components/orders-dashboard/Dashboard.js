@@ -6,11 +6,15 @@ import Footer from './Footer';
 import Products from './products/Products';
 import ProductsSearch from './products/ProductsSearch';
 
-export default function OrdersDashboard() {
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [order, setOrder] = useState([]);
+export default function OrdersDashboard({
+  totalPrice,
+  setTotalPrice,
+  order,
+  setOrder,
+  dashboardBool,
+  setDashboardBool,
+}) {
   const [changeBool, setChangeBool] = useState(false);
-
   const productsArr = [
     {
       name: 'X-Tudo',
@@ -43,7 +47,7 @@ export default function OrdersDashboard() {
   ];
 
   return (
-    <Container>
+    <Container dashboardBool={dashboardBool}>
       <h1> Bem vindo ao BurgerEats!</h1>
       <ProductsSearch
         productsArr={productsArr}
@@ -68,6 +72,7 @@ export default function OrdersDashboard() {
         setTotalPrice={setTotalPrice}
         order={order}
         setOrder={setOrder}
+        setDashboardBool={setDashboardBool}
       />
     </Container>
   );
@@ -78,7 +83,7 @@ const Container = styled.div`
   min-height: 100vh;
   margin-top: 115px;
   padding: 15vh 22vh 0 22vh;
-  display: flex;
+  display: ${props => (props.dashboardBool ? 'flex' : 'none')};
   flex-direction: column;
   background-color: white;
   border-radius: 80px 80px 0 0;
