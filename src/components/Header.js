@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Header() {
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState('pedidos');
+  const location = useLocation();
+  const [selectedItem, setSelectedItem] = useState(
+    `${location.pathname.substring(1)}`,
+  );
 
   const handleItemClick = item => {
     setSelectedItem(item.item);
@@ -22,24 +25,24 @@ export default function Header() {
 
         <>
           <div
-            onClick={() => handleItemClick({ item: 'pedidos', navigate: '/' })}
-            className={selectedItem === 'pedidos' ? 'selected' : ''}
+            onClick={() => handleItemClick({ item: 'orders', navigate: '/' })}
+            className={selectedItem === 'orders' ? 'selected' : ''}
           >
             Pedidos
           </div>
 
           <div
-            className={selectedItem === 'cozinha' ? 'selected' : ''}
+            className={selectedItem === 'kitchen' ? 'selected' : ''}
             onClick={() =>
-              handleItemClick({ item: 'cozinha', navigate: '/kitchen' })
+              handleItemClick({ item: 'kitchen', navigate: '/kitchen' })
             }
           >
             Cozinha
           </div>
 
           <div
-            className={selectedItem === 'retirada' ? 'selected' : ''}
-            onClick={() => handleItemClick({ item: 'retirada', navigate: '/' })}
+            className={selectedItem === 'takeout' ? 'selected' : ''}
+            onClick={() => handleItemClick({ item: 'takeout', navigate: '/' })}
           >
             Retirada
           </div>

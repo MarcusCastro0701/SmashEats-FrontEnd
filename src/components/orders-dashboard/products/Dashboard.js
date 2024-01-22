@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import burger from '../../assets/images/burger.jpeg';
+import burger from '../../../assets/images/burger.jpeg';
 import Categories from './Categories';
 import Footer from './Footer';
-import Products from './products/Products';
-import ProductsSearch from './products/ProductsSearch';
+import Products from './Products';
+import ProductsSearch from './ProductsSearch';
 
 export default function OrdersDashboard({
   totalPrice,

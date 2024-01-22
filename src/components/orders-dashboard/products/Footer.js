@@ -3,7 +3,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import ProductOrder from './products/ProductOrder';
+import ProductOrder from './ProductOrder';
 
 export default function Footer({
   totalPrice,

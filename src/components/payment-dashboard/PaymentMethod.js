@@ -11,6 +11,7 @@ export default function PaymentMethod({
   totalPrice,
   setTotalPrice,
   setOrder,
+  order,
 }) {
   const [selected, setSelected] = useState(null);
   const [change, setChange] = useState(0);
@@ -36,7 +37,7 @@ export default function PaymentMethod({
       toast('Insira um valor válido para o troco');
       return;
     }
-
+    console.log(order);
     setTotalPrice(0);
     setOrder([]);
     setSelected(null);

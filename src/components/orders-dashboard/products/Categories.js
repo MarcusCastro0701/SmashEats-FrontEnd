@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import burger from '../../assets/images/burger.jpeg';
-import combo from '../../assets/images/combo.jpeg';
-import porcao from '../../assets/images/porcao.jpeg';
-import sobremesa from '../../assets/images/sobremesa.jpeg';
+import burger from '../../../assets/images/burger.jpeg';
+import combo from '../../../assets/images/combo.jpeg';
+import porcao from '../../../assets/images/porcao.jpeg';
+import sobremesa from '../../../assets/images/sobremesa.jpeg';
 
 export default function Categories() {
   const categoriesArr = [

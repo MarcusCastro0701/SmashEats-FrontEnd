@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import OrdersDashboard from '../../components/orders-dashboard/Dashboard';
+import OrdersDashboard from '../../components/orders-dashboard/products/Dashboard';
 import PaymentDashboard from '../../components/payment-dashboard/Dashboard';
 
 export default function OrdersHome() {

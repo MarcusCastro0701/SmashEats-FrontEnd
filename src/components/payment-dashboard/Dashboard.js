@@ -41,6 +41,7 @@ export default function PaymentDashboard({
             totalPrice={totalPrice}
             setTotalPrice={setTotalPrice}
             setOrder={setOrder}
+            order={order}
           />
         </Right>
       </div>

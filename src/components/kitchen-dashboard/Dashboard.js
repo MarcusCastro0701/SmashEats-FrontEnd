@@ -1,48 +1,54 @@
 import React from 'react';
 import styled from 'styled-components';
 import burger from '../../assets/images/burger.jpeg';
-import OrderCard from './OrderCard';
+import PreparingOrderCard from './PreparingOrderCard';
+import ReadyOrderCard from './ReadyOrderCard';
 
 export default function KitchenDashboard() {
   const kitchenArr = [
     {
       clientName: 'Marcus',
       code: 200,
-      order: [
+      orders: [
         {
-          name: 'X-Tudo',
-          img: burger,
-        },
-        {
-          name: 'X-Tudin',
-          img: burger,
-        },
-        {
-          name: 'X-Tudasso',
-          img: burger,
+          observations: '',
+          quantity: 2,
+          productOrder: {
+            name: 'X-Tudin',
+            img: burger,
+            type: 1,
+          },
         },
       ],
-      ready: false,
+
+      ready: true,
     },
 
     {
       clientName: 'Rick',
       code: 201,
-      order: [
+      orders: [
         {
-          name: 'X-Tudo',
-          img: burger,
+          observations: '',
+          quantity: 3,
+          productOrder: {
+            name: 'X-Tudin',
+            img: burger,
+            type: 1,
+          },
         },
         {
-          name: 'X-Tudin',
-          img: burger,
-        },
-        {
-          name: 'X-Tudasso',
-          img: burger,
+          observations: 'Bem passado',
+          quantity: 2,
+          productOrder: {
+            name: 'X-Tudasso',
+            img: burger,
+            type: 1,
+          },
         },
       ],
-      ready: true,
+
+      ready: false,
     },
   ];
 
@@ -50,10 +56,11 @@ export default function KitchenDashboard() {
     <Container>
       <Left>
         <h1>Preparando: </h1>
-        <OrderCard kitchenArr={kitchenArr} />
+        <PreparingOrderCard kitchenArr={kitchenArr} />
       </Left>
       <Right>
         <h1>Pronto: </h1>
+        <ReadyOrderCard kitchenArr={kitchenArr} />
       </Right>
     </Container>
   );
@@ -75,7 +82,6 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-  background-color: aliceblue;
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -84,10 +90,10 @@ const Left = styled.div`
 `;
 
 const Right = styled.div`
-  background-color: aliceblue;
   display: flex;
   flex-direction: column;
   width: 50%;
   min-height: 50vh;
   border-left: 0.5px solid black;
+  padding-left: 6.5vh;
 `;
