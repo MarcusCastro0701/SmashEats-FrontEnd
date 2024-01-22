@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import scroll from '../hooks/Scroll';
 
 export default function Header() {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState('pedidos');
 
   const handleItemClick = item => {
     setSelectedItem(item.item);
-    scroll(item.position);
+    navigate(item.navigate);
   };
 
   return (
@@ -21,7 +22,7 @@ export default function Header() {
 
         <>
           <div
-            onClick={() => handleItemClick({ item: 'pedidos', position: 0 })}
+            onClick={() => handleItemClick({ item: 'pedidos', navigate: '/' })}
             className={selectedItem === 'pedidos' ? 'selected' : ''}
           >
             Pedidos
@@ -29,14 +30,16 @@ export default function Header() {
 
           <div
             className={selectedItem === 'cozinha' ? 'selected' : ''}
-            onClick={() => handleItemClick({ item: 'cozinha', position: 0 })}
+            onClick={() =>
+              handleItemClick({ item: 'cozinha', navigate: '/kitchen' })
+            }
           >
             Cozinha
           </div>
 
           <div
             className={selectedItem === 'retirada' ? 'selected' : ''}
-            onClick={() => handleItemClick({ item: 'retirada', position: 0 })}
+            onClick={() => handleItemClick({ item: 'retirada', navigate: '/' })}
           >
             Retirada
           </div>

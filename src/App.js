@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Header from './components/Header';
-import Home from './pages/home/Home';
+import KitchenHome from './pages/home/KitchenHome';
+import OrdersHome from './pages/home/OrdersHome';
 
 export default function App() {
   return (
@@ -20,10 +21,11 @@ export default function App() {
         pauseOnHover
         theme="dark"
       />
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<OrdersHome />} />
+          <Route path="/kitchen" element={<KitchenHome />} />
         </Routes>
       </BrowserRouter>
     </>

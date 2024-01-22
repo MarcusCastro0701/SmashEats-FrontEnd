@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import OrdersDashboard from '../../components/orders-dashboard/Dashboard';
 import PaymentDashboard from '../../components/payment-dashboard/Dashboard';
 
-export default function Home() {
+export default function OrdersHome() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [order, setOrder] = useState([]);
   const [dashboardBool, setDashboardBool] = useState(true);
@@ -23,6 +23,8 @@ export default function Home() {
         totalPrice={totalPrice}
         dashboardBool={dashboardBool}
         setDashboardBool={setDashboardBool}
+        setTotalPrice={setTotalPrice}
+        setOrder={setOrder}
       />
     </Container>
   );

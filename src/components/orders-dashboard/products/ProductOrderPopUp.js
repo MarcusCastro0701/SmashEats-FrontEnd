@@ -116,6 +116,7 @@ export default function ProductOrderPopUp({
             setProductOrder={setProductOrder}
             changeBool={changeBool}
             setChangeBool={setChangeBool}
+            quantity={quantity}
           />
         ))}
 
@@ -157,6 +158,7 @@ const PopUp = styled.div`
   padding: 10vh;
   z-index: 900;
   border-radius: 5vh 0 0 5vh;
+  border: 3px solid black;
   h1 {
     margin-bottom: 7vh;
   }
@@ -217,14 +219,14 @@ const Blur = styled.div`
 
 const Finish = styled.button`
   width: 30vh;
-  height: 6vh;
-  font-size: 3vh;
+  height: 7vh;
+  font-size: 2.5vh;
   border-radius: 20px;
   border: none;
   color: white;
   font-weight: 600 !important;
   background-color: green;
-  margin-top: 4vh;
+  margin-top: 5vh;
   &:hover {
     background-color: #00cc00;
     cursor: pointer;
@@ -233,15 +235,14 @@ const Finish = styled.button`
 
 const Cancel = styled.button`
   width: 30vh;
-  height: 6vh;
-  font-size: 3vh;
+  height: 7vh;
+  font-size: 2.5vh;
   border-radius: 20px;
   border: none;
   color: white;
   background-color: #8a8f8a;
   font-weight: 600 !important;
   margin-left: 4vh;
-  margin-top: 4vh;
   &:hover {
     background-color: red;
     color: white;

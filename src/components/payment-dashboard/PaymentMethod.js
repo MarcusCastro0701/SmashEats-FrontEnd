@@ -1,13 +1,48 @@
 import React, { useState } from 'react';
 import { FaMoneyBillAlt } from 'react-icons/fa';
 import { FaRegCreditCard } from 'react-icons/fa6';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
-export default function PaymentMethod({ setDashboardBool }) {
+export default function PaymentMethod({
+  setDashboardBool,
+  clientName,
+  setClientName,
+  totalPrice,
+  setTotalPrice,
+  setOrder,
+}) {
   const [selected, setSelected] = useState(null);
+  const [change, setChange] = useState(0);
 
   function changeCheckBox(option) {
     setSelected(option);
+  }
+
+  function finishPayment() {
+    if (clientName === '') {
+      toast('Insira um nome para identificar o pedido');
+      return;
+    }
+    if (clientName.length <= 3) {
+      toast('O nome do cliente precisa ter pelo menos 4 caracteres');
+      return;
+    }
+    if (selected === null) {
+      toast('Selecione uma forma de pagamento');
+      return;
+    }
+    if (selected === 'dinheiro' && change <= totalPrice) {
+      toast('Insira um valor válido para o troco');
+      return;
+    }
+
+    setTotalPrice(0);
+    setOrder([]);
+    setSelected(null);
+    setDashboardBool(true);
+    setClientName('');
+    toast('Pedido enviado para a cozinha!');
   }
 
   return (
@@ -64,13 +99,18 @@ export default function PaymentMethod({ setDashboardBool }) {
       {selected === 'dinheiro' ? (
         <div>
           <h2>Precisa de troco pra quanto? </h2>
-          <ChangeInput placeholder="Digite aqui..." />
+          <ChangeInput
+            type="number"
+            value={change}
+            onChange={e => setChange(e.target.value)}
+            placeholder="Digite aqui..."
+          />
         </div>
       ) : (
         ''
       )}
       <div>
-        <Finish>Finalizar</Finish>
+        <Finish onClick={() => finishPayment()}>Finalizar</Finish>
         <Cancel onClick={() => setDashboardBool(true)}>Cancelar</Cancel>
       </div>
     </Container>

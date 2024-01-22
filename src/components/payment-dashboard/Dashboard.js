@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import styled from 'styled-components';
 import PaymentMethod from './PaymentMethod';
@@ -9,7 +9,10 @@ export default function PaymentDashboard({
   totalPrice,
   setDashboardBool,
   dashboardBool,
+  setTotalPrice,
+  setOrder,
 }) {
+  const [clientName, setClientName] = useState('');
   return (
     <Container dashboardBool={dashboardBool}>
       <Top>
@@ -21,13 +24,24 @@ export default function PaymentDashboard({
         <Left>
           <Summary order={order} totalPrice={totalPrice} />
           <span>
-            <input placeholder="Nome do cliente..." />
+            <input
+              value={clientName}
+              onChange={e => setClientName(e.target.value)}
+              placeholder="Nome do cliente..."
+            />
             <h2>Código: 000</h2>
           </span>
         </Left>
 
         <Right>
-          <PaymentMethod setDashboardBool={setDashboardBool} />
+          <PaymentMethod
+            setDashboardBool={setDashboardBool}
+            clientName={clientName}
+            setClientName={setClientName}
+            totalPrice={totalPrice}
+            setTotalPrice={setTotalPrice}
+            setOrder={setOrder}
+          />
         </Right>
       </div>
     </Container>
