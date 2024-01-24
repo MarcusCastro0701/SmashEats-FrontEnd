@@ -6,8 +6,6 @@ Todo o layout foi desenvolvido pensando em uma aplicação responsiva e que se a
 
 Separei cos componentes partindo do App.js. De lá, cada tela possui uma Home (os dashboars de orders e payments estao em um únio endereço). Da home, parte para o dashboard de cada tela, seguido de seus componentes, renderizados individualmente, o aque torna a aplicação mais legível.
 
-Obtive novos conhecimentos lidando com libs que eu não conhecia e, ao final do projeto, valeu apena todo o esforço, pois obtive mais experiência com a elaboração de projetos e estipulação de tempo para a realização de tarefas. 
-
 Dediquei todo o meu tempo disponível desde o lançamento do desafio (17/01/2024)
 
 IMPORTANTE: Para habilitar a impressão térmica, descomente a parte que está comentada no componente "PaymentMethod.js"
