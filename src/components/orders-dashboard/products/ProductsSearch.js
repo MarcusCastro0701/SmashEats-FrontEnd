@@ -11,7 +11,6 @@ export default function ProductsSearch({
   changeBool,
   setChangeBool,
 }) {
-  console.log(productsArr, 'productsArr aqui');
   const [searchInputValue, setSearchInputValue] = useState('');
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -21,30 +20,16 @@ export default function ProductsSearch({
   }
 
   function inputVerification(value) {
-    console.log(value);
     if (value === '') {
       setProducts([]);
     }
     const arr = productsArr;
-    console.log('antes do filter');
     const filteredArr = arr.filter(p =>
       p.name.toLowerCase().includes(value.toLowerCase()),
     );
-    console.log('depois do filter');
     setProducts(filteredArr);
     setSearchInputValue(value);
   }
-
-  // product,
-  // products,
-  // setOpen,
-  // setClose,
-  // totalPrice,
-  // setTotalPrice,
-  // order,
-  // setOrder,
-  // changeBool,
-  // setChangeBool,
 
   return (
     <>
