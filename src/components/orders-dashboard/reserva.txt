@@ -1,0 +1,70 @@
+useEffect(() => {
+        if (localStorage.getItem("user")) {
+            const data = JSON.parse(localStorage.getItem("user"))
+
+            setUser(data)
+
+            axios.get(`${BackendLink}timeline`, {headers: {Authorization: `Bearer ${data.token}`}} )
+                .then(
+                    (res) => {
+                        
+                        setResposta(res.data[0]);
+                        setContadorTimeline(res.data[1].length)
+                    }
+                )
+                .catch(err => console.log(err))
+        }else{
+            navigate("/")
+        }
+    }, [render])
+
+    function sendPost(e){
+        e.preventDefault()
+
+        setBoolPublish(true)
+
+        axios.post(`${BackendLink}timeline`, {link, comentary} ,{headers: {Authorization: `Bearer ${user.token}`}})
+            .then(() => {
+                console.log("boa")
+                setRender(!render)
+                setLink("")
+                setCommentary("")
+                setBoolPublish(false)
+            })
+            .catch(() => setBoolPublish(false))
+
+    }
+
+    if(user === false){
+        navigate("/")
+    }
+
+    useInterval(() => {
+
+        console.log("ta chegando aqui")
+
+        axios.get(`${BackendLink}timeline`, { headers: { Authorization: `Bearer ${user.token}` } })
+            .then((res) => {
+
+                setVerificaTimeline(res.data[1].length);
+                setNovaTimeline(res.data[1])
+                console.log(verificaTimeline, "opa", contadorTimeline);
+                if ((verificaTimeline - contadorTimeline) === 0) {
+                    setBoolTimeline(false)
+                }
+
+                if (verificaTimeline > contadorTimeline) {
+                    console.log("novos posts detectados")
+                    setBoolTimeline(true)
+                    setNovosPosts(verificaTimeline - contadorTimeline)
+                }
+                
+                if ((verificaTimeline - contadorTimeline) === 0) {
+                    setBoolTimeline(false)
+                }
+
+            }
+            )
+            .catch(err => console.log(err))
+
+    }, 15000);
