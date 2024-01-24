@@ -14,14 +14,11 @@ export default function Products({
 }) {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    async function set() {
-      const allProducts = await api.GetProducts();
-      setProducts(allProducts.data);
-    }
-
-    set();
+  useEffect(async () => {
+    const allOrders = await api.GetProducts();
+    setProducts(allOrders.data);
   }, []);
+
   return (
     <Container>
       {categories.map(c => (

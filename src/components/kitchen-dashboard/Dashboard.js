@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useInterval } from 'react-use';
 import styled from 'styled-components';
 import api from '../../services/API';
 import PreparingOrderCard from './PreparingOrderCard';
@@ -9,12 +10,12 @@ export default function KitchenDashboard() {
   const [products, setProducts] = useState([]);
   const [useEffectBool, setUseEffectBool] = useState(false);
 
-  useEffect(async () => {
+  useInterval(async () => {
     const allOrders = await api.GetOrders();
     const allProducts = await api.GetProducts();
     setOrders(allOrders.data);
     setProducts(allProducts.data);
-  }, [useEffectBool]);
+  }, 5000);
 
   return (
     <Container>

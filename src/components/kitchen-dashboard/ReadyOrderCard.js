@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Spinner } from '../../common/spinner/Spinner';
 import ReadyOrderComponent from './ReadyOrderComponent';
 
 export default function ReadyOrderCard({
@@ -8,7 +9,10 @@ export default function ReadyOrderCard({
   useEffectBool,
   setUseEffectBool,
 }) {
-  if (orders.length === 0 || products.length === 0) {
+  if (products.length === 0) {
+    return <Spinner />;
+  }
+  if (orders.length === 0) {
     return '';
   }
   return (

@@ -1,90 +1,70 @@
-import React from 'react';
-import styled from 'styled-components';
-import Scroll from '../../../hooks/Scroll';
+useEffect(() => {
+        if (localStorage.getItem("user")) {
+            const data = JSON.parse(localStorage.getItem("user"))
 
-export default function Categories({ categories }) {
-  return (
-    <Container>
-      <h2> Selecione uma categoria</h2>
+            setUser(data)
 
-      <CategoryContainer>
-        <CategoryCard onClick={() => Scroll(700)}>
-          <img src={categories[0].ImageUrl} alt={categories[0].name} />
-          <p>{categories[0].name}</p>
-        </CategoryCard>
+            axios.get(`${BackendLink}timeline`, {headers: {Authorization: `Bearer ${data.token}`}} )
+                .then(
+                    (res) => {
+                        
+                        setResposta(res.data[0]);
+                        setContadorTimeline(res.data[1].length)
+                    }
+                )
+                .catch(err => console.log(err))
+        }else{
+            navigate("/")
+        }
+    }, [render])
 
-        <CategoryCard onClick={() => Scroll(1200)}>
-          <img src={categories[1].ImageUrl} alt={categories[1].name} />
-          <p>{categories[1].name}</p>
-        </CategoryCard>
+    function sendPost(e){
+        e.preventDefault()
 
-        <CategoryCard onClick={() => Scroll(1000)}>
-          <img src={categories[2].ImageUrl} alt={categories[2].name} />
-          <p>{categories[2].name}</p>
-        </CategoryCard>
+        setBoolPublish(true)
 
-        <CategoryCard onClick={() => Scroll(1150)}>
-          <img src={categories[3].ImageUrl} alt={categories[3].name} />
-          <p>{categories[3].name}</p>
-        </CategoryCard>
-      </CategoryContainer>
-    </Container>
-  );
-}
+        axios.post(`${BackendLink}timeline`, {link, comentary} ,{headers: {Authorization: `Bearer ${user.token}`}})
+            .then(() => {
+                console.log("boa")
+                setRender(!render)
+                setLink("")
+                setCommentary("")
+                setBoolPublish(false)
+            })
+            .catch(() => setBoolPublish(false))
 
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 30px;
-  margin-top: 10vh;
-  h2 {
-    color: black;
-    font-size: 2vh;
-    font-weight: 700;
-    @media (max-width: 1200px) {
-      text-align: center;
     }
-  }
-`;
 
-const CategoryContainer = styled.div`
-  width: 100%;
-  margin-top: 3vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  @media (max-width: 1200px) {
-    flex-direction: column;
-  }
-`;
+    if(user === false){
+        navigate("/")
+    }
 
-const CategoryCard = styled.div`
-  height: 26vh;
-  width: 34vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  border-radius: 20px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
-  margin-right: 4vh;
-  &:hover {
-    box-shadow: 0px 0px 10px 5px rgba(33, 150, 243, 0.7);
-    cursor: pointer;
-  }
-  img {
-    width: 18vh;
-    height: 16vh;
-    border-radius: 20px;
-  }
-  p {
-    font-size: 2.2vh;
-  }
-  @media (max-width: 1200px) {
-    flex-direction: column;
-    margin-bottom: 4vh;
-    margin-right: 0;
-  }
-`;
+    useInterval(() => {
+
+        console.log("ta chegando aqui")
+
+        axios.get(`${BackendLink}timeline`, { headers: { Authorization: `Bearer ${user.token}` } })
+            .then((res) => {
+
+                setVerificaTimeline(res.data[1].length);
+                setNovaTimeline(res.data[1])
+                console.log(verificaTimeline, "opa", contadorTimeline);
+                if ((verificaTimeline - contadorTimeline) === 0) {
+                    setBoolTimeline(false)
+                }
+
+                if (verificaTimeline > contadorTimeline) {
+                    console.log("novos posts detectados")
+                    setBoolTimeline(true)
+                    setNovosPosts(verificaTimeline - contadorTimeline)
+                }
+                
+                if ((verificaTimeline - contadorTimeline) === 0) {
+                    setBoolTimeline(false)
+                }
+
+            }
+            )
+            .catch(err => console.log(err))
+
+    }, 15000);

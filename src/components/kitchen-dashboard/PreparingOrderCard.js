@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 import React from 'react';
 import styled from 'styled-components';
+import { Spinner } from '../../common/spinner/Spinner';
 import PreparingOrderComponent from './PreparingOrderComponent';
 
 export default function PreparingOrderCard({
@@ -9,7 +10,10 @@ export default function PreparingOrderCard({
   useEffectBool,
   setUseEffectBool,
 }) {
-  if (orders.length === 0 || products.length === 0) {
+  if (products.length === 0) {
+    return <Spinner />;
+  }
+  if (orders.length === 0) {
     return '';
   }
   return (

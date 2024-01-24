@@ -1,7 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Spinner } from '../../common/spinner/Spinner';
 
-export default function ReadyContainer({ orders }) {
+export default function ReadyContainer({ products, orders }) {
+  if (products.length === 0) {
+    return <Spinner />;
+  }
+  if (orders.length === 0) {
+    return '';
+  }
   return (
     <Container>
       {orders.map(o => (
@@ -24,7 +31,7 @@ const Container = styled.div`
     font-weight: 600;
     opacity: 100%;
     @media (max-width: 1200px) {
-      font-size: 4.5vh;
+      font-size: 4.5vh !important;
     }
   }
 `;

@@ -7,10 +7,10 @@ const spinAnimation = keyframes`
 
 export const Spinner = styled.div`
   border-radius: 50px;
-  border-bottom: 3px dotted #391faa;
-  border-right: 3px dotted #391faa;
-  border-top: 6px ridge #391faa;
-  border-left: 3px dotted #391faa;
+  border-bottom: 3px dotted orange;
+  border-right: 3px dotted orange;
+  border-top: 6px ridge orange;
+  border-left: 3px dotted orange;
   width: ${props => props.width || '60px'};
   height: ${props => props.height || '60px'};
   animation: ${spinAnimation} 2s linear infinite;

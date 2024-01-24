@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useInterval } from 'react-use';
 import styled from 'styled-components';
 import api from '../../services/API';
 import PreparingContainer from './PreparingContainer';
@@ -6,21 +7,30 @@ import ReadyContainer from './ReadyContainer';
 
 export default function TakeoutDashboard() {
   const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  useEffect(async () => {
+  useInterval(async () => {
     const allOrders = await api.GetOrders();
+    const allProducts = await api.GetProducts();
     setOrders(allOrders.data);
-  }, []);
+    setProducts(allProducts.data);
+  }, 5000);
 
   return (
     <Container>
       <Left>
         <h2>Preparando: </h2>
-        <PreparingContainer orders={orders.filter(o => o.ready === false)} />
+        <PreparingContainer
+          products={products}
+          orders={orders.filter(o => o.ready === false)}
+        />
       </Left>
       <Right>
         <h2>Pronto: </h2>
-        <ReadyContainer orders={orders.filter(o => o.ready === true)} />
+        <ReadyContainer
+          products={products}
+          orders={orders.filter(o => o.ready === true)}
+        />
       </Right>
     </Container>
   );
