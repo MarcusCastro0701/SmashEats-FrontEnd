@@ -17,7 +17,7 @@ export default function PopUpFooter({ productOrder }) {
           Total: R${' '}
           {productOrder
             .reduce(function (accumulator, order) {
-              return accumulator + order.price;
+              return accumulator + Number(order.price);
             }, 0)
             .toFixed(2)}
         </h2>
@@ -41,6 +41,10 @@ const Container = styled.div`
   p {
     font-size: 2.5vh !important;
   }
+  @media (max-width: 1200px) {
+    padding: 3vh 1vh;
+    width: 95%;
+  }
 `;
 
 const Top = styled.div`
@@ -57,6 +61,14 @@ const Top = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 1vh;
+  }
+  @media (max-width: 1200px) {
+    p {
+      font-size: 2vh !important;
+    }
+    h2 {
+      font-size: 3vh !important;
+    }
   }
 `;
 

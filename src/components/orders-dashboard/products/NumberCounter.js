@@ -12,11 +12,8 @@ export default function NumberCounter({
 }) {
   function plus() {
     const arr = productOrder;
-    arr.unshift({
-      type: 1,
-      name: product.name,
-      price: product.price,
-    });
+    console.log(product);
+    arr.unshift(product);
     setQuantity(quantity + 1);
     setProductOrder(arr);
   }
@@ -48,6 +45,11 @@ const Container = styled.div`
   justify-content: space-evenly;
   h2 {
     margin-bottom: 0;
+    text-align: center;
+  }
+  @media (max-width: 1200px) {
+    align-items: center;
+    margin-top: 0;
   }
 `;
 

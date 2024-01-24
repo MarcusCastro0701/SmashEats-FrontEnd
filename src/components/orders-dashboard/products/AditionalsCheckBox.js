@@ -7,45 +7,49 @@ export default function AditionalsCheckBox({
   setProductOrder,
   changeBool,
   setChangeBool,
+  categoryId,
 }) {
   function addAditionalPrice(checked) {
     if (checked) {
       const arr = productOrder;
-      arr.push({
-        name: `${aditional.name} - (adicional)`,
-        price: aditional.price,
-        type: aditional.type,
-      });
+      console.log(aditional);
+      arr.push(aditional);
 
       setProductOrder(arr);
       setChangeBool(!changeBool);
     } else {
-      const filtered = productOrder.filter(
-        o => o.name !== `${aditional.name} - (adicional)`,
-      );
+      const filtered = productOrder.filter(o => o.name !== aditional.name);
       setProductOrder(filtered);
       setChangeBool(!changeBool);
     }
   }
 
-  return (
-    <Container>
-      <Side>
-        <img src={aditional.img} alt={aditional.name} />
-        <div>
-          <h2>{aditional.name}</h2>
-          <p>{aditional.size}</p>
-        </div>
-      </Side>
+  if (categoryId === 3 || categoryId === 4) {
+    return '';
+  }
 
-      <Side>
-        <h2>R${aditional.price.toFixed(2)}</h2>
-        <CheckBox
-          type="checkbox"
-          onChange={e => addAditionalPrice(e.target.checked)}
-        />
-      </Side>
-    </Container>
+  return (
+    <>
+      <h3>Adicionais</h3>
+      <p>Selecione ingredientes para adicionar ao seu lanche</p>
+      <Container>
+        <Side>
+          <img src={aditional.ImageUrl} alt={aditional.name} />
+          <div>
+            <h2>{aditional.name}</h2>
+            <p>{aditional.description}</p>
+          </div>
+        </Side>
+
+        <Side>
+          <h2>R${Number(aditional.price).toFixed(2)}</h2>
+          <CheckBox
+            type="checkbox"
+            onChange={e => addAditionalPrice(e.target.checked)}
+          />
+        </Side>
+      </Container>
+    </>
   );
 }
 
@@ -61,6 +65,9 @@ const Container = styled.div`
   }
   p {
     margin-top: 2vh !important;
+  }
+  @media (max-width: 1200px) {
+    flex-direction: column;
   }
 `;
 
@@ -80,6 +87,9 @@ const Side = styled.div`
     flex-direction: column !important;
     justify-content: space-around !important;
     align-items: center !important;
+  }
+  @media (max-width: 1200px) {
+    margin-top: 3vh;
   }
 `;
 

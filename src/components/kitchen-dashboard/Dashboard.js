@@ -1,83 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import burger from '../../assets/images/burger.jpeg';
+import api from '../../services/API';
 import PreparingOrderCard from './PreparingOrderCard';
 import ReadyOrderCard from './ReadyOrderCard';
 
 export default function KitchenDashboard() {
-  const kitchenArr = [
-    {
-      clientName: 'Marcus',
-      code: 200,
-      orders: [
-        {
-          observations: '',
-          quantity: 2,
-          productOrder: {
-            name: 'X-Tudin',
-            img: burger,
-            type: 1,
-          },
-        },
-      ],
+  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [useEffectBool, setUseEffectBool] = useState(false);
 
-      ready: true,
-    },
-
-    {
-      clientName: 'Rick',
-      code: 201,
-      orders: [
-        {
-          observations: '',
-          quantity: 3,
-          productOrder: {
-            name: 'X-Tudin',
-            img: burger,
-            type: 1,
-          },
-        },
-        {
-          observations: 'Bem passado',
-          quantity: 2,
-          productOrder: {
-            name: 'X-Tudasso',
-            img: burger,
-            type: 1,
-          },
-        },
-      ],
-
-      ready: false,
-    },
-  ];
+  useEffect(async () => {
+    const allOrders = await api.GetOrders();
+    const allProducts = await api.GetProducts();
+    setOrders(allOrders.data);
+    setProducts(allProducts.data);
+  }, [useEffectBool]);
 
   return (
     <Container>
       <Left>
         <h1>Preparando: </h1>
-        <PreparingOrderCard kitchenArr={kitchenArr} />
+        <PreparingOrderCard
+          products={products}
+          orders={orders}
+          useEffectBool={useEffectBool}
+          setUseEffectBool={setUseEffectBool}
+        />
       </Left>
       <Right>
         <h1>Pronto: </h1>
-        <ReadyOrderCard kitchenArr={kitchenArr} />
+        <ReadyOrderCard
+          products={products}
+          orders={orders}
+          useEffectBool={useEffectBool}
+          setUseEffectBool={setUseEffectBool}
+        />
       </Right>
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 100%;
+  width: 100% !important;
   min-height: 100vh;
   margin-top: 60px;
   padding: 15vh 22vh 0 22vh;
   display: flex;
   flex-direction: row;
-  background-color: white;
   border-radius: 80px 80px 0 0;
   padding-bottom: 8vh;
   h1 {
     color: black;
+  }
+  @media (max-width: 1200px) {
+    padding: 10vh 5vh 0 2vh;
+    width: 90%;
   }
 `;
 
@@ -87,6 +64,14 @@ const Left = styled.div`
   width: 50%;
   min-height: 50vh;
   border-right: 0.5px solid black;
+  @media (max-width: 1200px) {
+    h1 {
+      font-size: 3vh !important;
+    }
+    @media (max-width: 1200px) {
+      align-items: flex-start !important;
+    }
+  }
 `;
 
 const Right = styled.div`
@@ -96,4 +81,10 @@ const Right = styled.div`
   min-height: 50vh;
   border-left: 0.5px solid black;
   padding-left: 6.5vh;
+  @media (max-width: 1200px) {
+    h1 {
+      font-size: 3vh !important;
+    }
+    padding-left: 1vh;
+  }
 `;

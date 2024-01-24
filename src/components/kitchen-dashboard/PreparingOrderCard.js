@@ -1,16 +1,28 @@
+/* eslint-disable no-plusplus */
 import React from 'react';
 import styled from 'styled-components';
 import PreparingOrderComponent from './PreparingOrderComponent';
 
-export default function PreparingOrderCard({ kitchenArr }) {
+export default function PreparingOrderCard({
+  products,
+  orders,
+  useEffectBool,
+  setUseEffectBool,
+}) {
+  if (orders.length === 0 || products.length === 0) {
+    return '';
+  }
   return (
     <Container>
-      {kitchenArr.map(obj => (
+      {orders.map(obj => (
         <PreparingOrderComponent
-          orders={obj.orders}
+          o={obj}
           clientName={obj.clientName}
           code={obj.code}
           ready={obj.ready}
+          products={products}
+          useEffectBool={useEffectBool}
+          setUseEffectBool={setUseEffectBool}
         />
       ))}
     </Container>
@@ -20,6 +32,10 @@ export default function PreparingOrderCard({ kitchenArr }) {
 const Container = styled.div`
   width: 75%;
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
   margin-top: 5vh;
+  @media (max-width: 1200px) {
+    width: 95%;
+    margin-top: 5vh;
+  }
 `;

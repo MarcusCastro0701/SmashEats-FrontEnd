@@ -68,10 +68,10 @@ export default function Footer({
       )}
       <div>
         <Cancel onClick={() => cancelOrder()} totalPrice={totalPrice}>
-          Cancelar
+          <p>Cancelar</p>
         </Cancel>
         <Finish totalPrice={totalPrice} onClick={() => finishOrder()}>
-          Ir para pagamento
+          <p>Pagamento</p>
         </Finish>
       </div>
     </OrderOptions>
@@ -93,6 +93,9 @@ const OrderOptions = styled.footer`
     border-radius: 10px;
     word-wrap: break-word;
     overflow-wrap: break-word;
+  }
+  @media (max-width: 1200px) {
+    width: 88%;
   }
 `;
 
@@ -128,6 +131,14 @@ const Finish = styled.button`
       props.totalPrice !== 0 ? '#00cc00' : 'lightgray'};
     cursor: pointer;
   }
+  @media (max-width: 1200px) {
+    width: 15vh;
+    height: 4.2vh;
+    font-size: 3vh !important;
+    p {
+      font-size: 2vh;
+    }
+  }
 `;
 
 const Cancel = styled.button`
@@ -147,6 +158,13 @@ const Cancel = styled.button`
       props.totalPrice !== 0 ? 'red' : 'lightgray'};
     color: white;
     cursor: pointer;
+  }
+  @media (max-width: 1200px) {
+    width: 15vh;
+    height: 4.2vh;
+    p {
+      font-size: 2vh;
+    }
   }
 `;
 
@@ -170,6 +188,10 @@ const Container = styled.div`
       color: red;
       cursor: pointer;
     }
+  }
+  @media (max-width: 1200px) {
+    padding: 3vh 1vh;
+    width: 100%;
   }
 `;
 

@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import Header from './components/Header';
 import KitchenHome from './pages/home/KitchenHome';
 import OrdersHome from './pages/home/OrdersHome';
+import TakeoutHome from './pages/home/TakeoutHome';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<OrdersHome />} />
           <Route path="/kitchen" element={<KitchenHome />} />
+          <Route path="/takeout" element={<TakeoutHome />} />
         </Routes>
       </BrowserRouter>
     </>

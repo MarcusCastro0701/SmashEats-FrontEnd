@@ -1,34 +1,48 @@
 import React from 'react';
 import { IoIosCloseCircle } from 'react-icons/io';
-
 import styled from 'styled-components';
+import api from '../../services/API';
 
 export default function ReadyOrderComponent({
-  orders,
+  o,
   clientName,
   code,
   ready,
+  products,
+  useEffectBool,
+  setUseEffectBool,
 }) {
   if (!ready) {
     return '';
   }
+
+  async function deletingOrder() {
+    try {
+      await api.DeleteOrder(o.id);
+      setUseEffectBool(!useEffectBool);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Card>
-      <h3>
-        {clientName} - {code}
-      </h3>
+      <h3>{clientName}</h3>
 
-      {orders.map(o => (
-        <InfoContainer>
-          <img src={o.productOrder.img} alt={o.productOrder.name} />
-          <h2>
-            {o.quantity}x {o.productOrder.name}
-          </h2>
-        </InfoContainer>
-      ))}
+      <h3>{code}</h3>
+
+      <InfoContainer>
+        <img
+          src={products.filter(p => p.id === o.productId)[0].ImageUrl}
+          alt={products.filter(p => p.id === o.productId)[0].name}
+        />
+        <h2>
+          {o.quantity}x {products.filter(p => p.id === o.productId)[0].name}
+        </h2>
+      </InfoContainer>
 
       <div>
-        <Close />
+        <Close onClick={() => deletingOrder()} />
       </div>
     </Card>
   );
@@ -50,6 +64,9 @@ const Card = styled.div`
     height: 8vh;
     border-radius: 1vh;
     margin-right: 5vh;
+    @media (max-width: 1200px) {
+      margin: 0;
+    }
   }
   h2 {
     font-size: 2vh;
@@ -57,6 +74,9 @@ const Card = styled.div`
   }
   h3 {
     font-size: 3vh;
+    @media (max-width: 1200px) {
+      font-size: 2.8vh;
+    }
   }
   div: {
     width: 100% !important;
@@ -72,6 +92,11 @@ const InfoContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 4vh;
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 const Close = styled(IoIosCloseCircle)`

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import burger from '../../../assets/images/burger.jpeg';
+import api from '../../../services/API';
 import Categories from './Categories';
 import Footer from './Footer';
 import Products from './Products';
@@ -45,10 +46,22 @@ export default function OrdersDashboard({
       img: burger,
     },
   ];
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function set() {
+      const allCategories = await api.GetCategories();
+      const arr = allCategories.data;
+      arr.pop();
+      setCategories(arr);
+    }
+
+    set();
+  }, []);
 
   return (
     <Container dashboardBool={dashboardBool}>
-      <h1> Bem vindo ao BurgerEats!</h1>
+      <h1> Bem vindo ao SmashEats!</h1>
       <ProductsSearch
         productsArr={productsArr}
         totalPrice={totalPrice}
@@ -58,7 +71,7 @@ export default function OrdersDashboard({
         changeBool={changeBool}
         setChangeBool={setChangeBool}
       />
-      <Categories />
+      <Categories categories={categories} />
       <Products
         totalPrice={totalPrice}
         setTotalPrice={setTotalPrice}
@@ -66,6 +79,7 @@ export default function OrdersDashboard({
         setOrder={setOrder}
         changeBool={changeBool}
         setChangeBool={setChangeBool}
+        categories={categories}
       />
       <Footer
         totalPrice={totalPrice}
@@ -100,8 +114,22 @@ const Container = styled.div`
       border: none;
       box-shadow: 0 0 5px rgba(128, 128, 128, 0.5);
     }
+    @media (max-width: 1200px) {
+      width: 30vh;
+    }
   }
   h1 {
     color: black;
+    @media (max-width: 1200px) {
+      font-size: 4vh;
+      width: 100%;
+      text-align: center;
+    }
+  }
+  @media (max-width: 1200px) {
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
   }
 `;

@@ -1,70 +1,32 @@
-/* eslint-disable no-undef */
 import React from 'react';
 import styled from 'styled-components';
 import Scroll from '../../../hooks/Scroll';
 
 export default function Categories({ categories }) {
-  function scrollVerification(id) {
-    if (id === 1) {
-      if (window.innerWidth <= 1200 && window.innerHeight < 800) {
-        Scroll(1300);
-        return;
-      }
-      if (window.innerWidth <= 1200 && window.innerHeight > 800) {
-        Scroll(1600);
-        return;
-      }
-      Scroll(700);
-    }
-
-    if (id === 2) {
-      if (window.innerWidth <= 1200 && window.innerHeight < 800) {
-        Scroll(2400);
-        return;
-      }
-      if (window.innerWidth <= 1200 && window.innerHeight > 800) {
-        Scroll(3000);
-        return;
-      }
-      Scroll(1100);
-    }
-
-    if (id === 3) {
-      if (window.innerWidth <= 1200 && window.innerHeight < 800) {
-        Scroll(3250);
-        return;
-      }
-      if (window.innerWidth <= 1200 && window.innerHeight > 800) {
-        Scroll(4050);
-        return;
-      }
-      Scroll(1600);
-    }
-
-    if (id === 4) {
-      if (window.innerWidth <= 1200 && window.innerHeight < 800) {
-        Scroll(4100);
-        return;
-      }
-      if (window.innerWidth <= 1200 && window.innerHeight > 800) {
-        Scroll(5100);
-        return;
-      }
-      Scroll(2000);
-    }
-  }
-
   return (
     <Container>
       <h2> Selecione uma categoria</h2>
 
       <CategoryContainer>
-        {categories.map(c => (
-          <CategoryCard onClick={() => scrollVerification(c.id)}>
-            <img src={c.ImageUrl} alt={c.name} />
-            <p>{c.name}</p>
-          </CategoryCard>
-        ))}
+        <CategoryCard onClick={() => Scroll(700)}>
+          <img src={categories[0].ImageUrl} alt={categories[0].name} />
+          <p>{categories[0].name}</p>
+        </CategoryCard>
+
+        <CategoryCard onClick={() => Scroll(1200)}>
+          <img src={categories[1].ImageUrl} alt={categories[1].name} />
+          <p>{categories[1].name}</p>
+        </CategoryCard>
+
+        <CategoryCard onClick={() => Scroll(1000)}>
+          <img src={categories[2].ImageUrl} alt={categories[2].name} />
+          <p>{categories[2].name}</p>
+        </CategoryCard>
+
+        <CategoryCard onClick={() => Scroll(1150)}>
+          <img src={categories[3].ImageUrl} alt={categories[3].name} />
+          <p>{categories[3].name}</p>
+        </CategoryCard>
       </CategoryContainer>
     </Container>
   );

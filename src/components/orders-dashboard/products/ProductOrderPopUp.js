@@ -1,15 +1,13 @@
 /* eslint-disable no-plusplus */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import bacon from '../../../assets/images/bacon.jpeg';
-import barbecue from '../../../assets/images/barbecue.jpeg';
-import chedar from '../../../assets/images/chedar.jpeg';
 import AditionalsCheckBox from './AditionalsCheckBox';
 import NumberCounter from './NumberCounter';
 import PopUpFooter from './PopUpFooter';
 
 export default function ProductOrderPopUp({
   product,
+  products,
   setOpen,
   setClose,
   totalPrice,
@@ -21,37 +19,7 @@ export default function ProductOrderPopUp({
 }) {
   const [quantity, setQuantity] = useState(1);
   const [productObservations, setProductObservations] = useState('');
-  const [productOrder, setProductOrder] = useState([
-    {
-      type: 1,
-      name: product.name,
-      price: product.price,
-    },
-  ]);
-
-  const aditionals = [
-    {
-      name: 'Bacon',
-      img: bacon,
-      price: 2.5,
-      size: '10g',
-      type: 2,
-    },
-    {
-      name: 'Chedar',
-      img: chedar,
-      price: 1.5,
-      size: '10g',
-      type: 2,
-    },
-    {
-      name: 'Barbecue',
-      img: barbecue,
-      price: 2.5,
-      size: 'Acompanhamento',
-      type: 2,
-    },
-  ];
+  const [productOrder, setProductOrder] = useState([product]);
 
   function addOrder() {
     setTotalPrice(
@@ -59,7 +27,7 @@ export default function ProductOrderPopUp({
         Number(
           productOrder
             .reduce(function (accumulator, order) {
-              return accumulator + order.price;
+              return accumulator + Number(order.price);
             }, 0)
             .toFixed(2),
         ),
@@ -88,7 +56,7 @@ export default function ProductOrderPopUp({
         <h1>Revise o pedido!</h1>
 
         <InfoContainer>
-          <img src={product.img} alt={product.name} />
+          <img src={product.ImageUrl} alt={product.name} />
 
           <div>
             <h2>{product.name}!</h2>
@@ -106,19 +74,19 @@ export default function ProductOrderPopUp({
           product={product}
         />
 
-        <h3>Adicionais</h3>
-        <p>Selecione ingredientes para adicionar ao seu lanche</p>
-
-        {aditionals.map(a => (
-          <AditionalsCheckBox
-            aditional={a}
-            productOrder={productOrder}
-            setProductOrder={setProductOrder}
-            changeBool={changeBool}
-            setChangeBool={setChangeBool}
-            quantity={quantity}
-          />
-        ))}
+        {products
+          .filter(p => p.categoryId === 5)
+          .map(a => (
+            <AditionalsCheckBox
+              aditional={a}
+              productOrder={productOrder}
+              setProductOrder={setProductOrder}
+              changeBool={changeBool}
+              setChangeBool={setChangeBool}
+              quantity={quantity}
+              categoryId={product.categoryId}
+            />
+          ))}
 
         <div>
           <h3>Observações</h3>
@@ -186,6 +154,14 @@ const PopUp = styled.div`
       border-color: transparent;
     }
   }
+  @media (max-width: 1200px) {
+    padding: 3vh 0;
+    align-items: center;
+    width: 80%;
+    h2 {
+      margin-top: 2vh;
+    }
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -194,6 +170,9 @@ const InfoContainer = styled.div`
   justify-content: space-between;
   flex-direction: row;
   width: 100%;
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
   div {
     display: flex;
     flex-direction: column;
@@ -247,5 +226,9 @@ const Cancel = styled.button`
     background-color: red;
     color: white;
     cursor: pointer;
+  }
+  @media (max-width: 1200px) {
+    margin-left: 0;
+    margin-top: 2vh;
   }
 `;

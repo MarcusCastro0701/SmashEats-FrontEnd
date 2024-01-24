@@ -106,4 +106,7 @@ const ProductsCardContainer = styled.div`
   width: 95% !important;
   align-items: center !important;
   justify-content: space-between !important;
+  @media (max-width: 1200px) {
+    flex-direction: column !important;
+  }
 `;

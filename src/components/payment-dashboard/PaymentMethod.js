@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-plusplus */
 import React, { useState } from 'react';
 import { FaMoneyBillAlt } from 'react-icons/fa';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import api from '../../services/API';
 
 export default function PaymentMethod({
   setDashboardBool,
@@ -12,6 +16,7 @@ export default function PaymentMethod({
   setTotalPrice,
   setOrder,
   order,
+  code,
 }) {
   const [selected, setSelected] = useState(null);
   const [change, setChange] = useState(0);
@@ -20,13 +25,13 @@ export default function PaymentMethod({
     setSelected(option);
   }
 
-  function finishPayment() {
+  async function finishPayment() {
     if (clientName === '') {
       toast('Insira um nome para identificar o pedido');
       return;
     }
-    if (clientName.length <= 3) {
-      toast('O nome do cliente precisa ter pelo menos 4 caracteres');
+    if (clientName.length <= 2) {
+      toast('O nome do cliente precisa ter pelo menos 3 caracteres');
       return;
     }
     if (selected === null) {
@@ -37,7 +42,37 @@ export default function PaymentMethod({
       toast('Insira um valor válido para o troco');
       return;
     }
-    console.log(order);
+
+    const lancheArr = [];
+
+    for (let c = 0; c < order.length; c++) {
+      const body = {
+        productId: order[c].productOrder[0].id,
+        quantity: order[c].quantity,
+        observations: order[c].observations,
+        clientName,
+        code,
+        ready: false,
+      };
+
+      await api.PostOrder(body);
+
+      lancheArr.push({
+        lanche: order[c].productOrder[0].name,
+        preco: order[c].productOrder[0].price,
+        quantidade: order[c].quantity,
+      });
+    }
+
+    // const pedido = {
+    //   cliente: clientName,
+    //   numero: code,
+    //   itens: lancheArr,
+    //   total: totalPrice,
+    // };
+
+    // await api.GenerateOrder(pedido);
+
     setTotalPrice(0);
     setOrder([]);
     setSelected(null);
@@ -99,7 +134,7 @@ export default function PaymentMethod({
       </SubContainer>
       {selected === 'dinheiro' ? (
         <div>
-          <h2>Precisa de troco pra quanto? </h2>
+          <h2>Precisa de troco pra quantos reais? </h2>
           <ChangeInput
             type="number"
             value={change}
@@ -127,6 +162,17 @@ const Container = styled.div`
   h3 {
     font-size: 3vh;
   }
+  div {
+    flex-direction: column;
+  }
+  @media (max-width: 1200px) {
+    h2 {
+      font-size: 2vh !important;
+    }
+    div {
+      flex-direction: column !important;
+    }
+  }
 `;
 
 const ChangeInput = styled.input`
@@ -136,11 +182,16 @@ const ChangeInput = styled.input`
   border: none !important;
   background-color: lightgray;
   margin-left: 2vh;
+  margin-top: 2vh;
+  @media (max-width: 1200px) {
+    width: 50%;
+    margin-top: 1.5vh;
+  }
 `;
 
 const SubContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
   justify-content: space-between !important;
   align-items: center;
   width: 100% !important;
@@ -155,20 +206,32 @@ const SubContainer = styled.div`
   p {
     margin-top: 2vh !important;
   }
+  @media (max-width: 1200px) {
+    flex-direction: column !important;
+  }
+  input {
+    margin-left: 0 !important;
+    margin-top: 2vh !important;
+  }
 `;
 
 const Side = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-
   div {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-around !important;
     align-items: center !important;
     margin-left: 2vh !important;
+  }
+  @media (max-width: 1200px) {
+    flex-direction: column !important;
+    h2 {
+      text-align: center;
+    }
   }
 `;
 
@@ -184,12 +247,18 @@ const CreditCard = styled(FaRegCreditCard)`
   width: 3vh;
   height: 3vh;
   color: orange;
+  @media (max-width: 1200px) {
+    margin-bottom: 2vh;
+  }
 `;
 
 const Money = styled(FaMoneyBillAlt)`
   width: 3vh;
   height: 3vh;
   color: orange;
+  @media (max-width: 1200px) {
+    margin-bottom: 2vh;
+  }
 `;
 
 const Finish = styled.button`
@@ -205,6 +274,12 @@ const Finish = styled.button`
   &:hover {
     background-color: #00cc00;
     cursor: pointer;
+  }
+  @media (max-width: 1200px) {
+    width: 18vh;
+    height: 3vh;
+    margin-top: 1vh;
+    font-size: 2vh;
   }
 `;
 
@@ -223,5 +298,12 @@ const Cancel = styled.button`
     background-color: red;
     color: white;
     cursor: pointer;
+  }
+  @media (max-width: 1200px) {
+    width: 18vh;
+    height: 3vh;
+    margin-left: 0;
+    margin-top: 1vh;
+    font-size: 2vh;
   }
 `;

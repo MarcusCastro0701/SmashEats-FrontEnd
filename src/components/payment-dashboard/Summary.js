@@ -41,6 +41,10 @@ const Container = styled.div`
       cursor: pointer;
     }
   }
+  @media (max-width: 1200px) {
+    width: 90%;
+    padding: 3vh 1vh;
+  }
 `;
 
 const Top = styled.div`
@@ -62,6 +66,9 @@ const ProductOrderContainer = styled.div`
   border-radius: 3vh;
   h2 {
     font-size: 2.5vh !important;
+    @media (max-width: 1200px) {
+      font-size: 2vh !important;
+    }
   }
   div {
     display: flex;

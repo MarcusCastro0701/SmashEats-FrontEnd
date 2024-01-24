@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import api from '../../../services/API';
 import ProductRow from './ProductRow';
-
-// fazer a rendenização dos componentes separados em outros arquivos!
 
 export default function Products({
   totalPrice,
@@ -11,17 +10,32 @@ export default function Products({
   setOrder,
   changeBool,
   setChangeBool,
+  categories,
 }) {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function set() {
+      const allProducts = await api.GetProducts();
+      setProducts(allProducts.data);
+    }
+
+    set();
+  }, []);
   return (
     <Container>
-      <ProductRow
-        totalPrice={totalPrice}
-        setTotalPrice={setTotalPrice}
-        order={order}
-        setOrder={setOrder}
-        changeBool={changeBool}
-        setChangeBool={setChangeBool}
-      />
+      {categories.map(c => (
+        <ProductRow
+          category={c}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
+          order={order}
+          setOrder={setOrder}
+          changeBool={changeBool}
+          setChangeBool={setChangeBool}
+          products={products}
+        />
+      ))}
     </Container>
   );
 }
@@ -36,5 +50,9 @@ const Container = styled.div`
     margin-bottom: 4vh;
     font-size: 3vh;
     font-weight: 600;
+  }
+  @media (max-width: 1200px) {
+    text-align: center;
+    margin-right: 0 !important;
   }
 `;

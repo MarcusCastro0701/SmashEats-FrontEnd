@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { PiHamburger } from 'react-icons/pi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -11,6 +12,15 @@ export default function Header() {
     `${location.pathname.substring(1)}`,
   );
 
+  useEffect(() => {
+    function set() {
+      if (location.pathname === '/') {
+        setSelectedItem('orders');
+      }
+    }
+    set();
+  }, []);
+
   const handleItemClick = item => {
     setSelectedItem(item.item);
     navigate(item.navigate);
@@ -20,7 +30,8 @@ export default function Header() {
     <Container>
       <HeaderItems>
         <Logo>
-          <img alt="Logo" />
+          <Burger />
+          <h2>SmashEats</h2>
         </Logo>
 
         <>
@@ -42,7 +53,9 @@ export default function Header() {
 
           <div
             className={selectedItem === 'takeout' ? 'selected' : ''}
-            onClick={() => handleItemClick({ item: 'takeout', navigate: '/' })}
+            onClick={() =>
+              handleItemClick({ item: 'takeout', navigate: '/takeout' })
+            }
           >
             Retirada
           </div>
@@ -78,7 +91,8 @@ const Container = styled.div`
   }
   @media (max-width: 1200px) {
     height: 12vh;
-    width: 100vw;
+    width: 100%;
+    border-radius: 0;
   }
 `;
 
@@ -88,7 +102,6 @@ const HeaderItems = styled.div`
   color: white;
   align-items: center;
   width: 90%;
-
   div {
     cursor: pointer;
     font-size: 22px;
@@ -103,13 +116,18 @@ const HeaderItems = styled.div`
   }
   @media (max-width: 1200px) {
     width: 95%;
-    justify-content: space-between;
+    justify-content: space-around;
     div {
       cursor: pointer;
       font-size: 2.3vw;
       font-weight: 600;
     }
   }
+`;
+
+const Burger = styled(PiHamburger)`
+  width: 8vh;
+  height: 8vh;
 `;
 
 const Logo = styled.div`
