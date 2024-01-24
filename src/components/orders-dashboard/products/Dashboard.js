@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import burger from '../../../assets/images/burger.jpeg';
 import api from '../../../services/API';
 import Categories from './Categories';
 import Footer from './Footer';
@@ -16,41 +15,15 @@ export default function OrdersDashboard({
   setDashboardBool,
 }) {
   const [changeBool, setChangeBool] = useState(false);
-  const productsArr = [
-    {
-      name: 'X-Tudo',
-      price: 21.9,
-      description:
-        'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
-      img: burger,
-    },
-    {
-      name: 'X-Tudin',
-      price: 27.9,
-      description:
-        'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
-      img: burger,
-    },
-    {
-      name: 'X-Tudão',
-      price: 23.9,
-      description:
-        'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
-      img: burger,
-    },
-    {
-      name: 'X-Tudasso',
-      price: 25.9,
-      description:
-        'hambúrguer suculento, queijo derretido, alface fresca, tomate maduro, maionese cremosa',
-      img: burger,
-    },
-  ];
+
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     async function set() {
       const allCategories = await api.GetCategories();
+      const allProducts = await api.GetProducts();
+      setProducts(allProducts.data);
       const arr = allCategories.data;
       arr.pop();
       setCategories(arr);
@@ -63,7 +36,7 @@ export default function OrdersDashboard({
     <Container dashboardBool={dashboardBool}>
       <h1> Bem vindo ao SmashEats!</h1>
       <ProductsSearch
-        productsArr={productsArr}
+        productsArr={products}
         totalPrice={totalPrice}
         setTotalPrice={setTotalPrice}
         order={order}

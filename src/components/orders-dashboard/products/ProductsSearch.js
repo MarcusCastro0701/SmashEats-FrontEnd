@@ -11,6 +11,7 @@ export default function ProductsSearch({
   changeBool,
   setChangeBool,
 }) {
+  console.log(productsArr, 'productsArr aqui');
   const [searchInputValue, setSearchInputValue] = useState('');
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -20,16 +21,30 @@ export default function ProductsSearch({
   }
 
   function inputVerification(value) {
+    console.log(value);
     if (value === '') {
       setProducts([]);
     }
     const arr = productsArr;
+    console.log('antes do filter');
     const filteredArr = arr.filter(p =>
       p.name.toLowerCase().includes(value.toLowerCase()),
     );
+    console.log('depois do filter');
     setProducts(filteredArr);
     setSearchInputValue(value);
   }
+
+  // product,
+  // products,
+  // setOpen,
+  // setClose,
+  // totalPrice,
+  // setTotalPrice,
+  // order,
+  // setOrder,
+  // changeBool,
+  // setChangeBool,
 
   return (
     <>
@@ -47,14 +62,15 @@ export default function ProductsSearch({
           : products.map((p, index) => (
               <>
                 <ProductCard onClick={() => selectProduct(index)}>
-                  <img src={p.img} alt="burger" />
+                  <img src={p.ImageUrl} alt="burger" />
                   <h3>{p.name}</h3>
                   <p>{p.description}</p>
-                  <h3>R${p.price.toFixed(2)}</h3>
+                  <h3>R${Number(p.price).toFixed(2)}</h3>
                 </ProductCard>
 
                 <ProductOrderPopUp
                   product={p}
+                  products={productsArr}
                   setOpen={selectedProduct === index}
                   setClose={() => selectProduct(index)}
                   totalPrice={totalPrice}
@@ -106,6 +122,7 @@ const ProductsCardContainer = styled.div`
   width: 95% !important;
   align-items: center !important;
   justify-content: space-between !important;
+  flex-wrap: wrap !important;
   @media (max-width: 1200px) {
     flex-direction: column !important;
   }
