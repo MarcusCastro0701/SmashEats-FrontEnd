@@ -23,7 +23,8 @@ function GenerateOrder(body) {
 }
 
 function UpdateOrder(orderId) {
-  return axios.put(`${BASE_URL}/orders/${orderId}`);
+  console.log(orderId);
+  return axios.put(`${BASE_URL}/orders/${5000}`);
 }
 
 function DeleteOrder(orderId) {

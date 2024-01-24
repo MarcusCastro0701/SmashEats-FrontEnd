@@ -6,6 +6,7 @@ const spinAnimation = keyframes`
 `;
 
 export const Spinner = styled.div`
+  margin-top: 30px;
   border-radius: 50px;
   border-bottom: 3px dotted orange;
   border-right: 3px dotted orange;

@@ -39,7 +39,7 @@ export default function PaymentMethod({
       return;
     }
     if (selected === 'dinheiro' && change <= totalPrice) {
-      toast('Insira um valor válido para o troco');
+      toast('O valor recebido deve ser maior ou igual ao preço total');
       return;
     }
 
@@ -134,12 +134,21 @@ export default function PaymentMethod({
       </SubContainer>
       {selected === 'dinheiro' ? (
         <div>
-          <h2>Precisa de troco pra quantos reais? </h2>
+          <h2>Recebido</h2>
           <ChangeInput
             type="number"
             value={change}
             onChange={e => setChange(e.target.value)}
-            placeholder="Digite aqui..."
+            placeholder="Valor entregue..."
+          />
+          <h2>Troco</h2>
+          <ChangeInput
+            type="number"
+            value={(
+              Number(change).toFixed(2) - Number(totalPrice).toFixed(2)
+            ).toFixed(2)}
+            placeholder="Troco"
+            disabled
           />
         </div>
       ) : (
@@ -164,6 +173,10 @@ const Container = styled.div`
   }
   div {
     flex-direction: column;
+    h2 {
+      margin-right: 2vh;
+      text-align: center;
+    }
   }
   @media (max-width: 1200px) {
     h2 {
@@ -176,13 +189,12 @@ const Container = styled.div`
 `;
 
 const ChangeInput = styled.input`
-  width: 40%;
+  width: 80%;
   height: 4vh;
   border-radius: 1vh;
   border: none !important;
   background-color: lightgray;
-  margin-left: 2vh;
-  margin-top: 2vh;
+  margin: 1vh 2vh 2vh 0;
   @media (max-width: 1200px) {
     width: 50%;
     margin-top: 1.5vh;
