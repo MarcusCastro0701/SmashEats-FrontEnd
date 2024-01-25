@@ -9,3 +9,15 @@ Separei cos componentes partindo do App.js. De lá, cada tela possui uma Home (o
 Dediquei todo o meu tempo disponível desde o lançamento do desafio (17/01/2024)
 
 IMPORTANTE: Para habilitar a impressão térmica, descomente a parte que está comentada no componente "PaymentMethod.js"
+
+# Para iniciar a aplicação
+
+- Certifique-se que o lado do servidor está ligado
+
+```bash
+npm i
+```
+
+```bash
+npm start
+```

@@ -25,11 +25,11 @@ const Container = styled.div`
   background-color: white;
   padding-top: 6vh;
   h1 {
-    color: darkgreen;
     margin: 2vh 0;
-    font-size: 10vh;
+    font-size: 10vh !important;
     font-weight: 600;
     opacity: 100%;
+    color: green !important;
     @media (max-width: 1200px) {
       font-size: 4.5vh !important;
     }

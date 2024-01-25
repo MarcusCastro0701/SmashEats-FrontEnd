@@ -154,6 +154,9 @@ const PopUp = styled.div`
       border-color: transparent;
     }
   }
+  p {
+    text-align: center !important;
+  }
   @media (max-width: 1200px) {
     padding: 3vh 0;
     align-items: center;

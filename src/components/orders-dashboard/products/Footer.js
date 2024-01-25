@@ -20,7 +20,8 @@ export default function Footer({
       .flat()
       .reduce((acc, price) => acc + price, 0);
 
-    setTotalPrice(newTotalPrice);
+    setTotalPrice(Number(newTotalPrice));
+    console.log(filteredArr, newTotalPrice, 'TO AQUI KKKKKKKK');
     setOrder(filteredArr);
   }
 

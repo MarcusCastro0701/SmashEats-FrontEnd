@@ -82,6 +82,10 @@ const ProductCard = styled.div`
   border-radius: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
   margin-top: 5vh;
+  margin-right: 4vh;
+  @media (max-width: 1200px) {
+    margin-right: 0 !important;
+  }
   &:hover {
     box-shadow: 0px 0px 10px 5px rgba(33, 150, 243, 0.7);
     cursor: pointer;
@@ -106,7 +110,6 @@ const ProductsCardContainer = styled.div`
   flex-direction: row !important;
   width: 95% !important;
   align-items: center !important;
-  justify-content: space-between !important;
   flex-wrap: wrap !important;
   @media (max-width: 1200px) {
     flex-direction: column !important;
